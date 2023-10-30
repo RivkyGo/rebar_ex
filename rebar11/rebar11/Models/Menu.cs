@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace DAL
+namespace rebar11.Models
 {
     public class Menu
     {
