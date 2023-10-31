@@ -8,6 +8,7 @@ namespace rebar11.Models
 {
     public class ShakeMenu
     {
+        
         public string ShakeName { get; set; }
         public string ShakeDescription { get; set; }
         public int ShakeSizeL { get; set; }

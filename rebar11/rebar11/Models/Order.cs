@@ -2,16 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 
 namespace rebar11.Models
 {
     public class Order
     {
+
         public List<Shake> OrderShakes { get; set; }
+
+        [BsonElement("sum of the price of all the shakes in the order")]
         public int SumPrice { get; set; }
+
+        //[BsonGuidRepresentation((GuidRepresentation)BsonType.ObjectId)]
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public Guid OrderID { get; set; }
+
         public String CustomerName { get; set; }
         public DateTime DateTime { get; set; }
+
+        [BsonElement("time creat the order")]
         public DateTime OrderTimeStart { get; set; }
         public DateTime OrderTimeFinish { get; set; }
 
