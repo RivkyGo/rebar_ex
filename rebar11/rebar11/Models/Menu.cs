@@ -18,14 +18,14 @@ namespace rebar11.Models
             //הצגת הרשימה של השיקים הקיימים בתפריט
         }
 
-        public void AddShake(string shakeName, string shakeDescription, int shakeSizeL, int shakeSizeM, int shakeSizeS)
-        {
-            if (Shakes == null)
-            {
-                Shakes = new List<ShakeMenu>();
-            }
-            ShakeMenu shake = new ShakeMenu(shakeName, shakeDescription, shakeSizeL, shakeSizeM, shakeSizeS);
-            Shakes.Add(shake);
-        }
+        //public void AddShake(string shakeName, string shakeDescription, int shakeSizeL, int shakeSizeM, int shakeSizeS)
+        //{
+        //    if (Shakes == null)
+        //    {
+        //        Shakes = new List<ShakeMenu>();
+        //    }
+        //    ShakeMenu shake = new ShakeMenu(shakeName, shakeDescription, shakeSizeL, shakeSizeM, shakeSizeS);
+        //    Shakes.Add(shake);
+        //}
     }
 }

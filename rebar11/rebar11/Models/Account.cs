@@ -12,7 +12,7 @@ namespace rebar11.Models
     public class Account
     {
         public List<Order> Orders { get; set; }
-        public int SumPriceAllTheOrder { get; set; }
+        public double SumPriceAllTheOrder { get; set; }
 
         public Account()
         {
@@ -20,10 +20,10 @@ namespace rebar11.Models
             SumPriceAllTheOrder = 0;
         }
 
-        public void AddOrderToTheCount(Order order)
-        {
-            Orders.Add(order);
-            SumPriceAllTheOrder += order.SumPrice;
-        }
+        //public void AddOrderToTheCount(Order order)
+        //{
+        //    Orders.Add(order);
+        //    SumPriceAllTheOrder += order.SumPrice;
+        //}
     }
 }

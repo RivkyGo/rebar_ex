@@ -12,37 +12,32 @@ namespace rebar11.Models
     {
 
         public List<Shake> OrderShakes { get; set; }
+        public double SumPrice { get; set; }
+        public Guid OrderID { get; set; }
+        public String CustomerName { get; set; }
+        public DateTime OrderDateTime { get; set; }
 
-        [BsonElement("sum of the price of all the shakes in the order")]
-        public int SumPrice { get; set; }
 
         //[BsonGuidRepresentation((GuidRepresentation)BsonType.ObjectId)]
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public Guid OrderID { get; set; }
+        //public DateTime OrderTimeStart { get; set; }
+        //public DateTime OrderTimeFinish { get; set; }
 
-        public String CustomerName { get; set; }
-        public DateTime DateTime { get; set; }
-
-        [BsonElement("time creat the order")]
-        public DateTime OrderTimeStart { get; set; }
-        public DateTime OrderTimeFinish { get; set; }
-
-        public Order (string customerName)
-        {
-            OrderShakes = new List<Shake>();
-            OrderID = Guid.NewGuid();
-            CustomerName = customerName;
-            DateTime = DateTime.Today;
-            OrderTimeStart = DateTime.Now;
-        }
+        //public Order (string customerName)
+        //{
+        //    OrderShakes = new List<Shake>();
+        //    OrderID = Guid.NewGuid();
+        //    CustomerName = customerName;
+        //    OrderDateTime = DateTime.Today;
+        //    //DateTime = DateTime.Today;
+        //    //OrderTimeStart = DateTime.Now;
+        //}
 
 
-        public void AddShakeToOrder(Shake shake)
-        {
-            OrderShakes.Add(shake);
-            SumPrice += shake.ShakeSize ;
-        }
+        //public void AddShakeToOrder(Shake shake)
+        //{
+        //    OrderShakes.Add(shake);
+        //    SumPrice += shake.ShakeSize ;
+        //}
 
 
     }

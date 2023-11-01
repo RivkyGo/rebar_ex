@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using rebar11.Data;
+using rebar11.Models;
 
 namespace rebar11
 {
@@ -26,14 +21,18 @@ namespace rebar11
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var mongoDBSettings = Configuration.GetSection("MongoDBSettings").Get<MongoDBSettings>();
+            services.AddScoped<MongoDBContext>(sp => new MongoDBContext(mongoDBSettings.ConnectionString, mongoDBSettings.DatabaseName));
 
+            //services.AddScoped(sp => new MongoDBContext(mongoDBSettings.ConnectionString, mongoDBSettings.DatabaseName));
+            //services.AddScoped<MongoDBContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "rebar11", Version = "v1" });
             });
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -44,7 +43,7 @@ namespace rebar11
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "rebar11 v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection(); // הוסף שורה זו
 
             app.UseRouting();
 

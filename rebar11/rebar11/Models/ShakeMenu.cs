@@ -1,29 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace rebar11.Models
 {
+    [BsonIgnoreExtraElements]
     public class ShakeMenu
     {
-        
-        public string ShakeName { get; set; }
-        public string ShakeDescription { get; set; }
-        public int ShakeSizeL { get; set; }
-        public int ShakeSizeM { get; set; }
-        public int ShakeSizeS { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
         public Guid ShakeID { get; set; }
 
-        public ShakeMenu(string shakeName, string shakeDescription, int shakeSizeL, int shakeSizeM, int shakeSizeS)
-        {
-            ShakeName = shakeName;
-            ShakeDescription = shakeDescription;
-            ShakeSizeL = shakeSizeL;
-            ShakeSizeM = shakeSizeM;
-            ShakeSizeS = shakeSizeS;
-            ShakeID = Guid.NewGuid();
-        }
+        [BsonElement("ShakeName")]
+        public string ShakeName { get; set; }
+
+        [BsonElement("ShakeDescription")]
+        public string ShakeDescription { get; set; }
+
+        [BsonElement("ShakeSizeL")]
+        public double ShakeSizeL { get; set; }
+
+        [BsonElement("ShakeSizeM")]
+        public double ShakeSizeM { get; set; }
+
+        [BsonElement("ShakeSizeS")]
+        public double ShakeSizeS { get; set; }
     }
 }
