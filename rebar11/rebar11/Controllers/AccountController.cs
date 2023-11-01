@@ -17,20 +17,20 @@ namespace rebar11.Controllers
 
 
         private readonly MongoDBContext _context;
-        
+        private const string PASSWORD = "Rivka1234";
 
         public AccountController(MongoDBContext context)
         {
             _context = context;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<ResultData> ClosingCheckout(string id)
+        [HttpGet("{password}")]
+        public ActionResult<ResultData> ClosingCheckout(string password)
         {
             int sumOrdersToday;
             double sumPriceToday = 0;
 
-            if (id.Equals("Rivka1234"))
+            if (password.Equals(PASSWORD))
             {
                 var ordersToday = _context.TodayOrders();
                 sumOrdersToday = ordersToday.Count;
