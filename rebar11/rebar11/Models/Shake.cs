@@ -12,6 +12,9 @@ namespace rebar11.Models
         public string ShakeSize { get; set; }
         public double Price { get; set; }
         public string ShakeName { get; set; }
+
+        public Discount Discount { get; set; }
+
         //public string ShakeDescription { get; set; }
         //public Guid ShakeID { get; set; }
 
@@ -22,7 +25,7 @@ namespace rebar11.Models
         //    //ShakeName = shakeName;
         //    //ShakeDescription = shakeDescription;
         //    //ShakeID = shakeID;
-            
+
         //    //ShakeSize = shakeSize;
         //    //NewShakeID = Guid.NewGuid();
         //}

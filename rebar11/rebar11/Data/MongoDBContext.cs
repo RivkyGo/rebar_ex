@@ -13,6 +13,7 @@ namespace rebar11.Data
 
         private readonly IMongoCollection<Order> _orders;
         private readonly IMongoCollection<ShakeMenu> _menu;
+        private readonly IMongoCollection<AccountToday> _account;
 
         public MongoDBContext(string connectionString, string databaseName)
         {
@@ -21,6 +22,7 @@ namespace rebar11.Data
 
             _orders = _database.GetCollection<Order>("Orders");
             _menu = _database.GetCollection<ShakeMenu>("Menu");
+            _account = _database.GetCollection<AccountToday>("Account");
 
         }
 
@@ -68,6 +70,29 @@ namespace rebar11.Data
         public void AddOrder(Order order)
         {
             _orders.InsertOne(order);
+        }
+
+
+        public List<Order> TodayOrders()
+        {
+            DateTime todayStart = DateTime.Today;
+            DateTime todayEnd = todayStart.AddDays(1);
+
+            var filter = Builders<Order>.Filter.And(
+                Builders<Order>.Filter.Gte(o => o.OrderTimeFinish, todayStart),
+                Builders<Order>.Filter.Lt(o => o.OrderTimeFinish, todayEnd)
+            );
+
+            var ordersWithTodayFinishDate = _orders.Find(filter).ToList();
+
+            return ordersWithTodayFinishDate;
+        }
+
+        public void AddAccount(int sumOrdersToday, double sumPriceToday)
+        {
+            AccountToday accountToday = new AccountToday(sumOrdersToday, sumPriceToday, DateTime.Today);
+            _account.InsertOne(accountToday);
+
         }
 
         //public ShakeMenu GetShakeMenu(string shakeName)

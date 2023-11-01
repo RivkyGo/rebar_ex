@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using rebar11.Data;
+using rebar11.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,45 @@ namespace rebar11.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+
+
+        private readonly MongoDBContext _context;
+
+        public AccountController(MongoDBContext context)
+        {
+            _context = context;
+        }
+
+        public ActionResult<ResultData> Get(string id)
+        {
+            int sumOrdersToday;
+            double sumPriceToday = 0;
+
+            if (id.Equals("Rivka1234"))
+            {
+                var ordersToday = _context.TodayOrders();
+                sumOrdersToday = ordersToday.Count;
+                foreach (var order in ordersToday)
+                {
+                    foreach (var shake in order.OrderShakes)
+                    {
+                        sumPriceToday += shake.Price * (1 - shake.Discount.Percent / 100);
+                    }
+                }
+                _context.AddAccount(sumOrdersToday, sumPriceToday);
+
+                return Ok(new ResultData
+                {
+                    SumOrdersToday = sumOrdersToday,
+                    SumPriceToday = sumPriceToday
+                });
+            }
+            else
+            {
+                return BadRequest("The password is incorrect.");
+            }
+        }
+
         // GET: api/<AccountController>
         [HttpGet]
         public IEnumerable<string> Get()
