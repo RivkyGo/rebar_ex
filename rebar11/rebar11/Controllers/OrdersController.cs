@@ -17,6 +17,7 @@ namespace rebar11.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly MongoDBContext _context;
+        private static Account _account = null;
 
         public OrdersController(MongoDBContext context)
         {
@@ -124,7 +125,11 @@ namespace rebar11.Controllers
             }
             order.OrderTimeFinish = DateTime.Now;
             _context.AddOrder(order);
-
+            if (_account == null)
+            {
+                _account = new Account();
+            }
+            _account.Orders.Add(order);
             return Ok("order save seccesfuly");
         }
 
