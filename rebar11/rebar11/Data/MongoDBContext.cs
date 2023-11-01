@@ -3,7 +3,6 @@ using rebar11.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace rebar11.Data
 {
@@ -25,6 +24,8 @@ namespace rebar11.Data
             _account = _database.GetCollection<AccountToday>("Account");
 
         }
+
+        // menu fanctions
 
         public List<ShakeMenu> GetMenu()
         {
@@ -51,7 +52,7 @@ namespace rebar11.Data
         }
 
 
-        // order fanction
+        // order fanctions
 
         public Order GetOrderById(Guid id)
         {
@@ -79,7 +80,7 @@ namespace rebar11.Data
             _orders.InsertOne(order);
         }
 
-        // Account fanction
+        // Account fanctions
 
         public List<Order> TodayOrders()
         {

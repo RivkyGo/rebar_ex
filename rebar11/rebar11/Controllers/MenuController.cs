@@ -3,10 +3,8 @@ using rebar11.Data;
 using rebar11.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace rebar11.Controllers
 {
@@ -14,17 +12,12 @@ namespace rebar11.Controllers
     [ApiController]
     public class MenuController : ControllerBase
     {
-
-
-
         private readonly MongoDBContext _context;
 
         public MenuController(MongoDBContext context)
         {
             _context = context;
         }
-
-
 
         [HttpGet]
         public ActionResult<IEnumerable<ShakeMenu>> GetMenu()
@@ -47,29 +40,33 @@ namespace rebar11.Controllers
 
 
 
-
-        // GET: api/Menu/{id}
-        //[HttpGet("{id:length(24)}", Name = "GetShake")]
-        [HttpGet("{id}")]
-        public ActionResult<ShakeMenu> Get(string id)
+        [HttpGet("{shakeID}")]
+        public ActionResult<ShakeMenu> Get(string shakeID)
         {
-            var shake = _context.GetShakeById(new Guid(id));
-
-            if (shake == null)
+            Guid guidShakeID;
+            if (Guid.TryParse(shakeID, out guidShakeID))
             {
-                return NotFound();
-            }
+                var shake = _context.GetShakeById(guidShakeID);
 
-            return shake;
+                if (shake == null)
+                {
+                    return BadRequest("there is no this shake");
+                }
+
+                return shake;
+            }
+            else
+            {
+                return BadRequest("The provided shakeID is not a valid GUID.");
+            }
         }
 
-        // POST api/<MenuController>
+
         [HttpPost]
         public ActionResult<ShakeMenu> Post([FromBody] ShakeMenu shakeMenu)
         {
             shakeMenu.ShakeID = Guid.NewGuid();
             _context.AddShakeMenu(shakeMenu);
-            //return CreatedAtRoute("GetShake", new { id = shakeMenu.ShakeID.ToString() }, shakeMenu);
             return Ok("The shake has been successfully added to the menu");
         }
 
