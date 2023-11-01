@@ -15,8 +15,9 @@ namespace rebar11.Models
         public double SumPrice { get; set; }
         public Guid OrderID { get; set; }
         public String CustomerName { get; set; }
-        public DateTime OrderDateTime { get; set; }
-
+        //public DateTime OrderDateTime { get; set; }
+        public DateTime OrderTimeStart { get; set; }
+        public DateTime OrderTimeFinish { get; set; }
 
         //[BsonGuidRepresentation((GuidRepresentation)BsonType.ObjectId)]
         //public DateTime OrderTimeStart { get; set; }

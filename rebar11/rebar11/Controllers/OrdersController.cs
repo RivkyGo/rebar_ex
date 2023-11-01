@@ -80,8 +80,9 @@ namespace rebar11.Controllers
             {
                 return BadRequest("An order cannot contain more than 10 items");
             }
-
-            order.OrderDateTime = DateTime.Now; /// לא בטוחה שזה טוב אולי צריך יום 
+            order.OrderTimeStart = DateTime.Now;
+            
+            //order.OrderDateTime = DateTime.Now; /// לא בטוחה שזה טוב אולי צריך יום 
             order.OrderID = Guid.NewGuid();
             foreach (var shake in order.OrderShakes)
             {
@@ -110,7 +111,7 @@ namespace rebar11.Controllers
                     return BadRequest("the size isn't correct");
                 }
             }
-
+            order.OrderTimeFinish = DateTime.Now;
             _context.AddOrder(order);
 
             return Ok("order save seccesfuly");
