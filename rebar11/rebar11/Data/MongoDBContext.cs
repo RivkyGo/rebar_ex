@@ -60,6 +60,13 @@ namespace rebar11.Data
         }
 
 
+        public List<Order> GetAllOrders()
+        {
+            var orders = _orders.Find(_ => true).ToList();
+            return orders;
+        }
+
+
         public ShakeMenu GetShakeMenu(string shakeName)
         {
             var filter = Builders<ShakeMenu>.Filter.Eq(s => s.ShakeName, shakeName);

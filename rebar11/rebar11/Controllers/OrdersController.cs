@@ -30,6 +30,17 @@ namespace rebar11.Controllers
         //    return "[]";
         //}
 
+        [HttpGet]
+        public ActionResult<Order> GetAllOrders()
+        {
+            var order = _context.GetAllOrders();
+            if (order == null)
+            {
+                return BadRequest("there is no orders");
+            }
+            return Ok(order);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Order> GetOrder(Guid id)
         {
