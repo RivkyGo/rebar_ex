@@ -102,15 +102,5 @@ namespace rebar11.Data
             _account.InsertOne(accountToday);
 
         }
-
-        //public ShakeMenu GetShakeMenu(string shakeName)
-        //{
-        //    return (ShakeMenu)_menu.Find(shakeName);
-        //}
-
-
-        //public ShakeMenu a
-
-        //public IMongoCollection<Order> Orders => _database.GetCollection<Order>("Orders");
     }
 }

@@ -19,11 +19,5 @@ namespace rebar11.Models
             Orders = new List<Order>();
             SumPriceAllTheOrder = 0;
         }
-
-        //public void AddOrderToTheCount(Order order)
-        //{
-        //    Orders.Add(order);
-        //    SumPriceAllTheOrder += order.SumPrice;
-        //}
     }
 }

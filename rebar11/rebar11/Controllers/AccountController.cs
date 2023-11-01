@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using rebar11.Data;
 using rebar11.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace rebar11.Controllers
 {
@@ -55,7 +50,5 @@ namespace rebar11.Controllers
                 return BadRequest("The password is incorrect.");
             }
         }
-
-        
     }
 }

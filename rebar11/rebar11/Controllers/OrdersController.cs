@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-using MongoDB.Driver;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
 using rebar11.Data;
 using rebar11.Models;
 
@@ -23,14 +16,6 @@ namespace rebar11.Controllers
         {
             _context = context;
         }
-
-
-        //[HttpGet]
-        //public string Get()
-        //{
-        //    return "[]";
-        //}
-
         [HttpGet]
         public ActionResult<Order> GetAllOrders()
         {
@@ -42,43 +27,18 @@ namespace rebar11.Controllers
             return Ok(order);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Order> GetOrder(Guid id)
+        [HttpGet("{orderID}")]
+        public ActionResult<Order> GetOrder(Guid orderID)
         {
-            var order = _context.GetOrderById(id);
+            var order = _context.GetOrderById(orderID);
             if (order == null)
             {
-                return NotFound();
+                return BadRequest("Invalid order ID");
             }
             return Ok(order);
         }
 
-        //[HttpGet("{ShakeName}")]
-        //public ActionResult<Shake> CreateOrder()
-        //{
-
-        //}
-
-        //[HttpGet]
-        //public async Task<IEnumerable<Order>> Get()
-        //{
-        //    return await _context.Orders.Find(_ => true).ToListAsync();
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Order>> Get(Guid id)
-        //{
-        //    var product = await _context.Orders.Find(p => p.OrderID == id).FirstOrDefaultAsync();
-
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return product;
-        //}
-
-
+        
 
         [HttpPost]
         public ActionResult<Order> CreateOrder([FromBody] Order order)
@@ -92,9 +52,16 @@ namespace rebar11.Controllers
             {
                 return BadRequest("An order cannot contain more than 10 items");
             }
+            if (order.CustomerName == null)
+            {
+                return BadRequest("The name of the inviter is missing");
+            }
+            if (order.OrderShakes.Count == 0)
+            {
+                return BadRequest("You have not ordered any items.");
+            }
             order.OrderTimeStart = DateTime.Now;
             
-            //order.OrderDateTime = DateTime.Now; /// לא בטוחה שזה טוב אולי צריך יום 
             order.OrderID = Guid.NewGuid();
             foreach (var shake in order.OrderShakes)
             {
@@ -132,35 +99,5 @@ namespace rebar11.Controllers
             _account.Orders.Add(order);
             return Ok("order save seccesfuly");
         }
-
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(Guid id, Order orderIn)
-        //{
-        //    var product = await _context.Orders.Find(p => p.OrderID == id).FirstOrDefaultAsync();
-
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    await _context.Orders.ReplaceOneAsync(p => p.OrderID == id, orderIn);
-
-        //    return NoContent();
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(Guid id)
-        //{
-        //    var product = await _context.Orders.Find(p => p.OrderID == id).FirstOrDefaultAsync();
-
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    await _context.Orders.DeleteOneAsync(p => p.OrderID == id);
-
-        //    return NoContent();
-        //}
     }
 }
