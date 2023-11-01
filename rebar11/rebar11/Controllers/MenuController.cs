@@ -46,10 +46,11 @@ namespace rebar11.Controllers
         }
 
 
-        
+
 
         // GET: api/Menu/{id}
-        [HttpGet("{id:length(24)}", Name = "GetShake")]
+        //[HttpGet("{id:length(24)}", Name = "GetShake")]
+        [HttpGet("{id}")]
         public ActionResult<ShakeMenu> Get(string id)
         {
             var shake = _context.GetShakeById(new Guid(id));
